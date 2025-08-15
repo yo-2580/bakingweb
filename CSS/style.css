@@ -1,0 +1,411 @@
+/* Google Fonts for Hebrew */
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&display=swap');
+
+/* --- Global Styles --- */
+:root {
+    --primary-color: #8B4513; /* Brown - צבע חום */
+    --secondary-color: #FFD700; /* Gold - צבע זהב */
+    --background-color: #FFF8E1; /* Cream - צבע קרם */
+    --text-color: #333;
+    --header-font: 'Assistant', sans-serif;
+    --body-font: 'Assistant', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--body-font);
+    line-height: 1.6;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    direction: rtl; /* Right to Left for Hebrew */
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 2rem;
+}
+
+h1, h2, h3 {
+    font-family: var(--header-font);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+/* --- Header & Navigation --- */
+.main-header {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-header .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-right: 25px;
+}
+
+.main-nav ul li a {
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active {
+    color: var(--secondary-color);
+}
+
+/* --- Hero Section (Homepage) --- */
+.hero {
+    height: 70vh;
+    background: url('../images/hero-image.jpg') no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero::after { /* Dark overlay for text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.hero-content {
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1.5rem;
+}
+
+.btn {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 12px 30px;
+    margin-top: 1.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background: #a0522d;
+}
+
+/* --- Gallery Section --- */
+.gallery-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.category-card {
+    position: relative; 
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.category-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.category-card-title {
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* --- About & Contact Pages --- */
+.page-header {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 2rem 0;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-content {
+    padding: 0 0 4rem 0;
+    max-width: 800px;
+    margin: auto;
+    text-align: right;
+}
+
+.page-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.about-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    float: left;
+    margin: 0 0 1rem 2rem;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: var(--body-font);
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* --- Footer --- */
+.main-footer {
+    background: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 4rem;
+}
+
+/* --- Category Page Styles --- */
+.back-to-gallery {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    float: right;
+}
+
+.back-to-gallery:hover {
+    color: var(--secondary-color);
+}
+
+#category-title {
+    clear: both;
+    padding-top: 1rem;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.photo-item {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    aspect-ratio: 1 / 1;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.photo-item img:hover {
+    transform: scale(1.05);
+}
+
+/* --- Lightbox/Modal Preview Styles --- */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 90vh;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+.lightbox-close, .lightbox-prev, .lightbox-next {
+    cursor: pointer;
+    position: absolute;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    user-select: none;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+    color: #bbb;
+}
+
+.lightbox-close {
+    top: 15px;
+    right: 35px;
+    font-size: 50px;
+}
+
+.lightbox-prev, .lightbox-next {
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 16px;
+}
+
+.lightbox-prev {
+    left: 10px;
+    border-radius: 0 3px 3px 0;
+}
+
+.lightbox-next {
+    right: 10px;
+    border-radius: 3px 0 0 3px;
+}
+
+/* --- סגנון לנקודות האינדיקציה --- */
+.dots-container {
+    position: absolute;
+    bottom: 65px; 
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer; /* הוספה: הופך את סמן העכבר ליד כדי לרמוז על לחיצות */
+}
+
+.dot.active {
+    background-color: #fff;
+    transform: scale(1.2);
+}
+
+
+/* --- Responsive --- */
+@media(max-width: 768px) {
+    .main-header .container {
+        flex-direction: column;
+    }
+    .main-nav ul {
+        margin-top: 1rem;
+        padding: 0;
+    }
+    .main-nav ul li {
+        margin: 0 10px;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+    }
+    .about-image {
+        float: none;
+        display: block;
+        margin: 0 auto 2rem auto;
+    }
+}
