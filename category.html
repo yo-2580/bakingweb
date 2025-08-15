@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>גלריה | שם הקונדיטוריה</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">שם הקונדיטוריה</a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">דף הבית</a></li>
+                    <li><a href="gallery.html" class="active">גלריה</a></li>
+                    <li><a href="about.html">אודות</a></li>
+                    <li><a href="contact.html">יצירת קשר</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="gallery-section">
+            <div class="container">
+                <a href="gallery.html" class="back-to-gallery">&larr; חזרה לכל הקטגוריות</a>
+                <h2 id="category-title">טוען גלריה...</h2>
+                <div id="photo-grid" class="photo-grid">
+                    <!-- התמונות יוכנסו לכאן על ידי JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Lightbox (Preview) HTML Structure -->
+    <div id="lightbox-modal" class="lightbox-modal">
+        <span id="lightbox-close" class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-image" id="lightbox-image" src="" alt="תצוגה מקדימה">
+        </div>
+        <a id="lightbox-prev" class="lightbox-prev">&#10094;</a>
+        <a id="lightbox-next" class="lightbox-next">&#10095;</a>
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2024 כל הזכויות שמורות ל"שם הקונדיטוריה"</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Part 1: Get Elements ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoryName = urlParams.get('name');
+            const titleElement = document.getElementById('category-title');
+            const gridElement = document.getElementById('photo-grid');
+
+            // Lightbox elements
+            const modal = document.getElementById('lightbox-modal');
+            const modalImg = document.getElementById('lightbox-image');
+            const closeBtn = document.getElementById('lightbox-close');
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+
+            // --- Part 2: State Variables ---
+            let imagePaths = []; // Array to store all image paths for navigation
+            let currentIndex = 0;
+
+            // --- Part 3: Lightbox Functions ---
+            const openLightbox = (index) => {
+                currentIndex = index;
+                updateLightboxImage();
+                modal.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            };
+
+            const closeLightbox = () => {
+                modal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            };
+
+            const updateLightboxImage = () => {
+                if (imagePaths.length > 0) {
+                    modalImg.src = imagePaths[currentIndex];
+                }
+            };
+
+            const showNextImage = () => {
+                currentIndex = (currentIndex + 1) % imagePaths.length;
+                updateLightboxImage();
+            };
+
+            const showPrevImage = () => {
+                currentIndex = (currentIndex - 1 + imagePaths.length) % imagePaths.length;
+                updateLightboxImage();
+            };
+
+            // --- Part 4: Dynamic Image Loading ---
+            if (categoryName) {
+                const decodedCategoryName = decodeURIComponent(categoryName.replace(/\+/g, ' '));
+                document.title = `${decodedCategoryName} | שם הקונדיטוריה`;
+                titleElement.textContent = decodedCategoryName;
+
+                const loadImageSequentially = (index) => {
+                    const maxImages = 50; // Safety limit
+                    if (index > maxImages) return;
+
+                    const imageName = index.toString().padStart(4, '0');
+                    const imagePath = `images/${categoryName}/${imageName}.jpg`;
+
+                    const tempImage = new Image();
+                    tempImage.src = imagePath;
+
+                    tempImage.onload = () => {
+                        imagePaths.push(imagePath); // Store the path for the lightbox
+                        const currentImageIndex = imagePaths.length - 1;
+
+                        const photoItem = document.createElement('div');
+                        photoItem.className = 'photo-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = imagePath;
+                        img.alt = `${decodedCategoryName} - תמונה ${index}`;
+                        
+                        // Add click listener to open the lightbox
+                        img.addEventListener('click', () => {
+                            openLightbox(currentImageIndex);
+                        });
+
+                        photoItem.appendChild(img);
+                        gridElement.appendChild(photoItem);
+
+                        loadImageSequentially(index + 1); // Try loading the next image
+                    };
+
+                    tempImage.onerror = () => {
+                        if (index === 1) {
+                             gridElement.innerHTML = '<p>לא נמצאו תמונות בקטגוריה זו.</p>';
+                        }
+                    };
+                };
+
+                loadImageSequentially(1); // Start the process
+
+            } else {
+                titleElement.textContent = 'שגיאה: קטגוריה לא נמצאה';
+            }
+            
+            // --- Part 5: Event Listeners for Lightbox ---
+            closeBtn.addEventListener('click', closeLightbox);
+            prevBtn.addEventListener('click', showPrevImage);
+            nextBtn.addEventListener('click', showNextImage);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) { // Close if background is clicked
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowRight') showNextImage();
+                    if (e.key === 'ArrowLeft') showPrevImage();
+                    if (e.key === 'Escape') closeLightbox();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
